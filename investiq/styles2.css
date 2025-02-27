@@ -1,0 +1,637 @@
+/* General Styles */
+:root {
+  --primary-color: #4361ee;
+  --danger-color: #e63946;
+  --success-color: #06d6a0;
+  --secondary-color: #4cc9f0;
+  --accent-color: #60a5fa;
+  --border-color: #e0e0e0;
+  --text-color: #333;
+  --card-background: white;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: #1a1a2e;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.sidebar h2 {
+  text-align: center;
+  color: #4cc9f0;
+  padding-bottom: 10px;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: white;
+  display: block;
+  padding: 12px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+  background: #4361ee;
+  transform: translateX(5px);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-header h2 {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+/* Buttons */
+button {
+  padding: 10px 15px;
+  border: none;
+  background: #4361ee;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: #3b28cc;
+  transform: translateY(-2px);
+}
+
+/* Table */
+.table-container {
+  padding: 0 15px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+th,
+td {
+  border: 1px solid #e0e0e0;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #444;
+}
+
+tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Status colors */
+.green {
+  color: var(--success-color);
+}
+
+.red {
+  color: var(--danger-color);
+}
+
+/* Portfolio Summary */
+.portfolio-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.portfolio-stat {
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Dark Mode */
+.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.dark-mode .sidebar {
+  background: #0d1117;
+}
+
+.dark-mode .card,
+.dark-mode header {
+  background: #1f1f1f;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode button {
+  background: #4361ee;
+}
+
+.dark-mode button:hover {
+  background: #3b52d4;
+}
+
+.dark-mode th {
+  background: #333;
+  color: #f0f0f0;
+  border-color: #444;
+}
+
+.dark-mode td {
+  border-color: #444;
+}
+
+.dark-mode tr:hover {
+  background-color: #2a2a2a;
+}
+
+.dark-mode .theme-toggle {
+  background: #333;
+  color: #e0e0e0;
+}
+
+.dark-mode .theme-toggle:hover {
+  background: #444;
+}
+
+.dark-mode input,
+.dark-mode select {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+.dark-mode .stat-label {
+  color: #aaa;
+}
+
+.dark-mode .last-updated {
+  color: #aaa;
+}
+
+.dark-mode .card-header {
+  border-bottom-color: #444;
+}
+
+.dark-mode .allocation-bar,
+.dark-mode .investment-bar {
+  background-color: #444;
+}
+
+.dark-mode .form-group label {
+  color: #e0e0e0;
+}
+
+/* Content Grid Layout */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chart-section {
+    grid-column: span 2;
+  }
+}
+
+/* Chart containers */
+.chart-container {
+  position: relative;
+  height: 250px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0f0f0;
+  color: #333;
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+.theme-toggle:hover {
+  background: #e0e0e0;
+}
+
+/* Time filter buttons */
+.time-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding-bottom: 15px;
+}
+
+.time-btn {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-btn:hover {
+  background-color: rgba(67, 97, 238, 0.1);
+}
+
+.time-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Form elements */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: white;
+  color: var(--text-color);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+}
+
+/* Transaction form */
+.transaction-form {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.add-transaction-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 600;
+  width: 100%;
+}
+
+.add-transaction-btn:hover {
+  background-color: #3a53c5;
+}
+
+/* Recent transactions */
+.recent-transactions {
+  padding: 15px 20px;
+}
+
+.recent-transactions h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+/* Chart titles */
+.chart-title {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* Allocation summary */
+.allocation-summary {
+  padding: 0 20px 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.allocation-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.allocation-label {
+  flex: 0 0 80px;
+  font-size: 0.9rem;
+}
+
+.allocation-bar {
+  flex: 1;
+  height: 10px;
+  background-color: var(--border-color);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0 10px;
+}
+
+.allocation-progress {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.allocation-value {
+  flex: 0 0 40px;
+  text-align: right;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Investment breakdown */
+.investment-breakdown {
+  padding: 15px 20px;
+}
+
+.investment-breakdown h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.investment-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.investment-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.investment-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.investment-name {
+  font-weight: 500;
+}
+
+.investment-value {
+  font-weight: 600;
+}
+
+.investment-bar {
+  height: 10px;
+  background-color: var(--border-color);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.investment-progress {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.investment-percentage {
+  align-self: flex-end;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .portfolio-stat {
+    min-width: 100px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-group {
+    min-width: 100%;
+  }
+
+  .chart-container > div {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+
+  .chart-container {
+    display: block !important;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .theme-toggle {
+    align-self: flex-end;
+  }
+}
+
+/* Animations and transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes highlight-pulse {
+  0% {
+    box-shadow: 0 0 0 rgba(67, 97, 238, 0);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(67, 97, 238, 0);
+  }
+}
+
+.highlight {
+  animation: highlight-pulse 1s ease;
+}
+
+/* Additional styles for last updated text */
+.last-updated {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Loading states */
+.loading {
+  position: relative;
+  opacity: 0.6;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
+  border: 3px solid rgba(67, 97, 238, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

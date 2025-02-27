@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Dashboard</title>
+    <link rel="stylesheet" href="styles2.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="SCRIPT1.JS"></script>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>InvestIQ</h2>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="index2.html">Market Trends</a></li>
+          <li><a href="#">AI Predictions</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header>
+        <h1>Financial Dashboard</h1>
+        <button id="theme-toggle" class="theme-toggle">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-text">Dark Mode</span>
+        </button>
+      </header>
+
+      <div class="content-grid">
+        <!-- Portfolio Overview Section -->
+        <section class="portfolio-overview-section card">
+          <div class="card-header">
+            <h2>Portfolio Overview</h2>
+            <div class="last-updated">
+              <small id="portfolio-last-updated">Last updated: Just now</small>
+            </div>
+          </div>
+          <div class="portfolio-summary">
+            <div class="portfolio-stat">
+              <span class="stat-label">Total Assets</span>
+              <span class="stat-value" id="total-assets">$52,680.75</span>
+            </div>
+            <div class="portfolio-stat">
+              <span class="stat-label">Growth</span>
+              <span class="stat-value" id="portfolio-growth">+12.4%</span>
+            </div>
+            <div class="portfolio-stat">
+              <span class="stat-label">Monthly Income</span>
+              <span class="stat-value" id="monthly-income">$4,500.00</span>
+            </div>
+            <div class="portfolio-stat">
+              <span class="stat-label">Savings Rate</span>
+              <span class="stat-value" id="savings-rate">32%</span>
+            </div>
+          </div>
+
+          <div class="chart-container" style="height: 250px">
+            <canvas id="portfolioGrowthChart"></canvas>
+          </div>
+
+          <div class="time-filter">
+            <button class="time-btn" data-months="2">2 Months</button>
+            <button class="time-btn active" data-months="6">6 Months</button>
+            <button class="time-btn" data-months="12">1 Year</button>
+          </div>
+        </section>
+
+        <!-- Income Tracker Section -->
+        <section class="income-section card">
+          <div class="card-header">
+            <h2>Income Tracker</h2>
+          </div>
+
+          <form id="transaction-form" class="transaction-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="transaction-amount">Amount ($):</label>
+                <input
+                  type="number"
+                  id="transaction-amount"
+                  placeholder="0.00"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="transaction-type">Type:</label>
+                <select id="transaction-type" required>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="transaction-category">Category:</label>
+                <select id="transaction-category" required>
+                  <option value="salary">Salary</option>
+                  <option value="investment">Investment Return</option>
+                  <option value="rent">Housing/Rent</option>
+                  <option value="utilities">Utilities</option>
+                  <option value="food">Food</option>
+                  <option value="transport">Transportation</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="transaction-date">Date:</label>
+                <input type="date" id="transaction-date" required />
+              </div>
+            </div>
+            <button type="submit" class="add-transaction-btn">
+              Add Transaction
+            </button>
+          </form>
+
+          <div class="recent-transactions">
+            <h3>Recent Transactions</h3>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="transactions-list">
+                  <!-- Transactions will be added here dynamically -->
+                  <tr>
+                    <td>Feb 25, 2025</td>
+                    <td>Salary</td>
+                    <td class="green">Income</td>
+                    <td>$4,500.00</td>
+                  </tr>
+                  <tr>
+                    <td>Feb 22, 2025</td>
+                    <td>Housing/Rent</td>
+                    <td class="red">Expense</td>
+                    <td>$1,850.00</td>
+                  </tr>
+                  <tr>
+                    <td>Feb 20, 2025</td>
+                    <td>Utilities</td>
+                    <td class="red">Expense</td>
+                    <td>$245.67</td>
+                  </tr>
+                  <tr>
+                    <td>Feb 18, 2025</td>
+                    <td>Investment Return</td>
+                    <td class="green">Income</td>
+                    <td>$320.45</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Asset Allocation Chart -->
+        <section class="chart-section card">
+          <div class="card-header">
+            <h2>Asset Allocation</h2>
+          </div>
+          <div
+            class="chart-container"
+            style="display: flex; justify-content: space-between"
+          >
+            <div style="width: 48%; height: 250px">
+              <h3 class="chart-title">Expense vs Savings</h3>
+              <canvas id="expenseSavingsChart"></canvas>
+            </div>
+            <div style="width: 48%; height: 250px">
+              <h3 class="chart-title">Investment Breakdown</h3>
+              <canvas id="investmentBreakdownChart"></canvas>
+            </div>
+          </div>
+          <div class="allocation-summary">
+            <div class="allocation-item">
+              <span class="allocation-label">Expenses</span>
+              <div class="allocation-bar">
+                <div
+                  class="allocation-progress"
+                  style="width: 52%; background-color: var(--danger-color)"
+                ></div>
+              </div>
+              <span class="allocation-value">52%</span>
+            </div>
+            <div class="allocation-item">
+              <span class="allocation-label">Savings</span>
+              <div class="allocation-bar">
+                <div
+                  class="allocation-progress"
+                  style="width: 32%; background-color: var(--success-color)"
+                ></div>
+              </div>
+              <span class="allocation-value">32%</span>
+            </div>
+            <div class="allocation-item">
+              <span class="allocation-label">Others</span>
+              <div class="allocation-bar">
+                <div
+                  class="allocation-progress"
+                  style="width: 16%; background-color: var(--secondary-color)"
+                ></div>
+              </div>
+              <span class="allocation-value">16%</span>
+            </div>
+          </div>
+          <div class="investment-breakdown">
+            <h3>Investment Portfolio</h3>
+            <div class="investment-items">
+              <div class="investment-item">
+                <div class="investment-info">
+                  <span class="investment-name">SIP</span>
+                  <span class="investment-value">$7,850.00</span>
+                </div>
+                <div class="investment-bar">
+                  <div
+                    class="investment-progress"
+                    style="width: 45%; background-color: var(--primary-color)"
+                  ></div>
+                </div>
+                <span class="investment-percentage">45%</span>
+              </div>
+              <div class="investment-item">
+                <div class="investment-info">
+                  <span class="investment-name">Mutual Funds</span>
+                  <span class="investment-value">$6,125.00</span>
+                </div>
+                <div class="investment-bar">
+                  <div
+                    class="investment-progress"
+                    style="width: 35%; background-color: var(--accent-color)"
+                  ></div>
+                </div>
+                <span class="investment-percentage">35%</span>
+              </div>
+              <div class="investment-item">
+                <div class="investment-info">
+                  <span class="investment-name">Stocks</span>
+                  <span class="investment-value">$3,500.00</span>
+                </div>
+                <div class="investment-bar">
+                  <div
+                    class="investment-progress"
+                    style="width: 20%; background-color: var(--secondary-color)"
+                  ></div>
+                </div>
+                <span class="investment-percentage">20%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Update Notification -->
+    <div id="update-notification" class="notification hidden">
+      <span id="notification-message">Portfolio updated!</span>
+    </div>
+  </body>
+</html>

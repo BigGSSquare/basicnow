@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Market Watchlist</title>
+    <link rel="stylesheet" href="styles1.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="script2.js"></script>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Stock Watchlist</h2>
+      <nav>
+        <ul>
+          <li><a href="index1.html">Dashboard</a></li>
+          <li><a href="index2.html" class="active">Market Trends</a></li>
+          <li><a href="#">AI Predictions</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header>
+        <h1>Stock Market Watchlist</h1>
+        <button id="theme-toggle" class="theme-toggle">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-text">Dark Mode</span>
+        </button>
+      </header>
+
+      <div class="content-grid">
+        <!-- Stock Watchlist Section -->
+        <section class="watchlist-section card">
+          <div class="card-header">
+            <h2>Track Your Stocks</h2>
+            <div class="last-updated">
+              <small id="last-updated">Last updated: Just now</small>
+            </div>
+          </div>
+
+          <form id="stock-form" class="stock-form">
+            <div class="form-group">
+              <input
+                type="text"
+                id="stock-symbol"
+                placeholder="Enter Stock Symbol (e.g. AAPL, MSFT, GOOGL)"
+                required
+              />
+              <button type="submit">Add Stock</button>
+            </div>
+          </form>
+
+          <div class="info-message">
+            <p>
+              Add stocks to your watchlist to track their prices in real-time.
+            </p>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stock Symbol</th>
+                  <th>Current Price</th>
+                  <th>Change (%)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="watchlist">
+                <!-- Stock data will be added here dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Investment Calculator Section -->
+        <section class="investment-section card">
+          <div class="card-header">
+            <h2>Investment Calculator</h2>
+          </div>
+          <form id="investment-form" class="investment-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="initial-investment">Initial Investment ($):</label>
+                <input
+                  type="number"
+                  id="initial-investment"
+                  placeholder="1000"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="monthly-contribution"
+                  >Monthly Contribution ($):</label
+                >
+                <input
+                  type="number"
+                  id="monthly-contribution"
+                  placeholder="200"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="interest-rate">Annual Interest Rate (%):</label>
+                <input
+                  type="number"
+                  id="interest-rate"
+                  placeholder="7"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="years">Investment Period (Years):</label>
+                <input type="number" id="years" placeholder="10" required />
+              </div>
+            </div>
+            <button type="submit" class="calculate-btn">Simulate Growth</button>
+          </form>
+        </section>
+
+        <!-- Portfolio Growth Chart -->
+        <section class="chart-section card">
+          <div class="card-header">
+            <h2>📈 Portfolio Growth Over Time</h2>
+          </div>
+          <div class="chart-container">
+            <canvas id="growthChart"></canvas>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Update Notification -->
+    <div id="update-notification" class="notification hidden">
+      <span id="notification-message">Updating prices...</span>
+    </div>
+  </body>
+</html>

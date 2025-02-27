@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Tracker Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- 🔹 Navbar -->
+    <nav class="navbar">
+      <h1>Finance Tracker</h1>
+      <button id="theme-toggle">🌙 Dark Mode</button>
+    </nav>
+
+    <div class="container">
+      <!-- 🔹 Sidebar -->
+      <aside class="sidebar">
+        <h2>💰 Dashboard</h2>
+        <ul>
+          <li class="active">📊 Overview</li>
+          <li>💸 Expenses</li>
+          <li>📈 Predictions</li>
+          <li>⚙️ Settings</li>
+        </ul>
+      </aside>
+
+      <!-- 🔹 Main Content -->
+      <main class="content">
+        <h1>Welcome to Your Financial Dashboard</h1>
+
+        <!-- 🔹 AI Prediction -->
+        <div class="card">
+          <h3>📈 AI Financial Prediction</h3>
+          <canvas id="predictionChart"></canvas>
+          <p id="prediction">Loading prediction...</p>
+        </div>
+
+        <!-- 🔹 Expense Tracker -->
+        <div class="card">
+          <h3>💸 Expense Tracker</h3>
+          <form id="expense-form">
+            <input
+              type="text"
+              id="expense-name"
+              placeholder="Expense Name"
+              required
+            />
+            <input
+              type="number"
+              id="expense-amount"
+              placeholder="Amount"
+              required
+            />
+            <button type="submit">Add Expense</button>
+          </form>
+          <ul id="expense-list"></ul>
+          <p>
+            <strong>Total Expenses:</strong> <span id="total-expenses">$0</span>
+          </p>
+          <p><strong>Savings:</strong> <span id="savings-account">$0</span></p>
+          <canvas id="expenseChart"></canvas>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

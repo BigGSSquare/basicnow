@@ -1,3 +1,23 @@
+// API Configuration
+const API_KEY = "Bst8a_EQ9r6nAF4cAk1cn97ZKmuk3F1c";
+const API_BASE_URL = "https://api.polygon.io/v2/aggs/ticker";
+
+// Stock tickers to fetch
+const stockTickers = [
+  // High Returns, Low Risk
+  "MSFT",
+  "JNJ",
+  "PG",
+  // Medium Returns
+  "NKE",
+  "V",
+  "ADBE",
+  // High Risk, High Potential
+  "TSLA",
+  "NVDA",
+  "PLTR",
+];
+
 // Dark Mode Toggle
 const themeToggle = document.getElementById("theme-toggle");
 const toggleIcon = document.querySelector(".toggle-icon");
@@ -22,6 +42,126 @@ themeToggle.addEventListener("click", function () {
   updateToggleButton(isDarkMode);
   localStorage.setItem("theme", isDarkMode ? "dark" : "light");
 });
+
+// Fetch stock data
+async function fetchStockData(symbol) {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/${symbol}/prev?adjusted=true&apiKey=${API_KEY}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching data for ${symbol}:`, error);
+    return null;
+  }
+}
+
+// Fetch all stocks data
+async function fetchAllStocksData() {
+  const loadingNotification = showNotification(
+    "Fetching latest stock data...",
+    10000
+  );
+
+  try {
+    const promises = stockTickers.map((ticker) => fetchStockData(ticker));
+    const results = await Promise.allSettled(promises);
+
+    // Process results
+    results.forEach((result, index) => {
+      if (
+        result.status === "fulfilled" &&
+        result.value &&
+        result.value.results
+      ) {
+        updateStockCard(stockTickers[index], result.value.results[0]);
+      }
+    });
+
+    // Hide loading notification
+    loadingNotification.classList.add("hidden");
+    showNotification("Stock data updated successfully!", 3000);
+  } catch (error) {
+    console.error("Error fetching all stocks data:", error);
+    loadingNotification.classList.add("hidden");
+    showNotification(
+      "Error updating stock data. Please try again later.",
+      3000
+    );
+  }
+}
+
+// Update stock card with the fetched data
+function updateStockCard(ticker, stockData) {
+  const stockCards = document.querySelectorAll(".stock-card");
+
+  // Find the card with matching ticker
+  for (const card of stockCards) {
+    const cardTicker = card.querySelector(".stock-ticker").textContent;
+
+    if (cardTicker === ticker) {
+      // Update price
+      const currentPrice = card.querySelector(".current-price");
+      const newPrice = stockData.c.toFixed(2);
+      currentPrice.textContent = `$${newPrice}`;
+
+      // Calculate price change percentage
+      const priceChangePercent = (
+        ((stockData.c - stockData.o) / stockData.o) *
+        100
+      ).toFixed(1);
+      const isPositive = priceChangePercent >= 0;
+
+      // Update price change element
+      const priceChange = card.querySelector(".price-change");
+      priceChange.textContent = `${
+        isPositive ? "+" : ""
+      }${priceChangePercent}% ${isPositive ? "⬆" : "⬇"}`;
+      priceChange.className = `price-change ${
+        isPositive ? "positive" : "negative"
+      }`;
+
+      // Update 52-week range if available (using high and low as approximation)
+      const rangeElement = card.querySelector(
+        ".detail-item:nth-child(4) .detail-value"
+      );
+      if (stockData.h && stockData.l) {
+        // Approximating 52W range with yesterday's high and low
+        // In a real app, you'd want to fetch the actual 52W range separately
+        const lowValue = (stockData.l * 0.85).toFixed(0); // Simulating a lower value for range
+        const highValue = (stockData.h * 1.05).toFixed(0); // Simulating a higher value for range
+        rangeElement.textContent = `$${lowValue} - $${highValue}`;
+      }
+
+      break;
+    }
+  }
+}
+
+// Create a refresh button
+function createRefreshButton() {
+  const header = document.querySelector(".main-content header");
+
+  // Create refresh button if it doesn't exist
+  if (!document.getElementById("refresh-data-btn")) {
+    const refreshButton = document.createElement("button");
+    refreshButton.id = "refresh-data-btn";
+    refreshButton.className = "refresh-button";
+    refreshButton.innerHTML = "↻ Refresh Data";
+
+    refreshButton.addEventListener("click", () => {
+      fetchAllStocksData();
+    });
+
+    header.appendChild(refreshButton);
+  }
+}
 
 // Watchlist functionality
 function loadWatchlist() {
@@ -360,6 +500,8 @@ function showNotification(message, duration = 3000) {
     setTimeout(() => {
       newNotification.classList.add("hidden");
     }, duration);
+
+    return newNotification;
   } else {
     notificationMessage.textContent = message;
     notification.classList.remove("hidden");
@@ -367,7 +509,20 @@ function showNotification(message, duration = 3000) {
     setTimeout(() => {
       notification.classList.add("hidden");
     }, duration);
+
+    return notification;
   }
+}
+
+// Set up auto refresh (every 5 minutes)
+function setupAutoRefresh() {
+  // Initial fetch
+  fetchAllStocksData();
+
+  // Refresh every 5 minutes (300000 ms)
+  setInterval(() => {
+    fetchAllStocksData();
+  }, 300000);
 }
 
 // Initialize the page
@@ -375,10 +530,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // Create initial modal (can be done ahead of time)
   createStockDetailsModal();
 
+  // Add refresh button to UI
+  createRefreshButton();
+
   // Initialize watchlist buttons to correct state
   initWatchlistButtons();
 
   // Set up event listeners
   setupWatchlistButtons();
   setupViewButtons();
+
+  // Start auto-refresh for stock data
+  setupAutoRefresh();
 });

@@ -742,3 +742,104 @@ header h1 {
     gap: 5px;
   }
 }
+/* Additional styles for the refresh button */
+.refresh-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-left: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.refresh-button:hover {
+  background-color: #45a049;
+}
+
+.refresh-button:active {
+  transform: scale(0.98);
+}
+
+/* Update notification styling */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(0);
+}
+
+.notification.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+/* Loading state for cards */
+.stock-card.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.stock-card.loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: loading-shine 1.5s infinite;
+}
+
+@keyframes loading-shine {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Dark mode compatibility */
+.dark-mode .refresh-button {
+  background-color: #2d8a30;
+  color: #f5f5f5;
+}
+
+.dark-mode .refresh-button:hover {
+  background-color: #246c27;
+}
+
+.dark-mode .notification {
+  background-color: #222;
+  color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Loading animation in dark mode */
+.dark-mode .stock-card.loading::after {
+  background: linear-gradient(
+    90deg,
+    rgba(40, 40, 40, 0) 0%,
+    rgba(60, 60, 60, 0.2) 50%,
+    rgba(40, 40, 40, 0) 100%
+  );
+}

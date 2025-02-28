@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIP Tracker</title>
+    <link rel="stylesheet" href="style3.css" />
+    <link rel="stylesheet" href="sip-style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <h2>FinTrack</h2>
+      <nav>
+        <ul>
+          <li><a href="SHEET1.html">Dashboard</a></li>
+          <li><a href="index2.html">Market trends</a></li>
+          <li><a href="index3.html">Suggestions</a></li>
+          <li><a href="sip-tracker.html" class="active">SIP Tracker</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header>
+        <h1>SIP Tracker</h1>
+        <div class="theme-toggle" id="theme-toggle">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-text">Dark Mode</span>
+        </div>
+      </header>
+
+      <!-- SIP Summary Card -->
+      <div class="card">
+        <div class="card-header">
+          <h2>SIP Summary</h2>
+          <button class="add-sip-btn" id="add-sip-btn">+ Add New SIP</button>
+        </div>
+        <div class="card-body">
+          <div class="sip-summary">
+            <div class="summary-item">
+              <div class="summary-value">₹32,500</div>
+              <div class="summary-label">Monthly Investment</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-value">₹7,85,000</div>
+              <div class="summary-label">Total Invested</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-value">₹9,12,400</div>
+              <div class="summary-label">Current Value</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-value positive">+16.2%</div>
+              <div class="summary-label">Overall Return</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Low Risk SIPs Section -->
+      <h3 class="category-header">High Returns, Low Risk SIPs</h3>
+      <div class="sip-cards">
+        <!-- SIP 1 -->
+        <div class="sip-card">
+          <div class="sip-header">
+            <div class="sip-name">HDFC Mid-Cap Opportunities Fund</div>
+            <div class="sip-category">Equity</div>
+          </div>
+          <div class="sip-amount">
+            <div class="monthly">₹7,500<span>/month</span></div>
+            <div class="return-value positive">+18.7% <span>⬆</span></div>
+          </div>
+          <div class="sip-tags">
+            <span class="tag low-risk">Low Risk</span>
+            <span class="tag">Mid Cap</span>
+          </div>
+          <div class="sip-details">
+            <div class="detail-item">
+              <div class="detail-label">Start Date</div>
+              <div class="detail-value">15 Jan, 2022</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Total Invested</div>
+              <div class="detail-value">₹1,87,500</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Current Value</div>
+              <div class="detail-value">₹2,22,550</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Next Debit</div>
+              <div class="detail-value">15 Mar, 2025</div>
+            </div>
+          </div>
+          <div class="sip-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button edit-sip-btn">Edit SIP</button>
+          </div>
+        </div>
+
+        <!-- SIP 2 -->
+        <div class="sip-card">
+          <div class="sip-header">
+            <div class="sip-name">SBI Blue Chip Fund</div>
+            <div class="sip-category">Equity</div>
+          </div>
+          <div class="sip-amount">
+            <div class="monthly">₹10,000<span>/month</span></div>
+            <div class="return-value positive">+14.5% <span>⬆</span></div>
+          </div>
+          <div class="sip-tags">
+            <span class="tag low-risk">Low Risk</span>
+            <span class="tag">Large Cap</span>
+          </div>
+          <div class="sip-details">
+            <div class="detail-item">
+              <div class="detail-label">Start Date</div>
+              <div class="detail-value">5 Mar, 2022</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Total Invested</div>
+              <div class="detail-value">₹2,40,000</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Current Value</div>
+              <div class="detail-value">₹2,74,800</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Next Debit</div>
+              <div class="detail-value">5 Mar, 2025</div>
+            </div>
+          </div>
+          <div class="sip-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button edit-sip-btn">Edit SIP</button>
+          </div>
+        </div>
+
+        <!-- SIP 3 -->
+        <div class="sip-card">
+          <div class="sip-header">
+            <div class="sip-name">Axis Long Term Equity Fund</div>
+            <div class="sip-category">ELSS</div>
+          </div>
+          <div class="sip-amount">
+            <div class="monthly">₹5,000<span>/month</span></div>
+            <div class="return-value positive">+16.2% <span>⬆</span></div>
+          </div>
+          <div class="sip-tags">
+            <span class="tag low-risk">Low Risk</span>
+            <span class="tag">Tax Saving</span>
+          </div>
+          <div class="sip-details">
+            <div class="detail-item">
+              <div class="detail-label">Start Date</div>
+              <div class="detail-value">10 Apr, 2022</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Total Invested</div>
+              <div class="detail-value">₹1,15,000</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Current Value</div>
+              <div class="detail-value">₹1,33,630</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Next Debit</div>
+              <div class="detail-value">10 Mar, 2025</div>
+            </div>
+          </div>
+          <div class="sip-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button edit-sip-btn">Edit SIP</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medium Risk SIPs Section -->
+      <h3 class="category-header">Moderate Returns, Moderate Risk SIPs</h3>
+      <div class="sip-cards">
+        <!-- SIP 1 -->
+        <div class="sip-card">
+          <div class="sip-header">
+            <div class="sip-name">ICICI Prudential Technology Fund</div>
+            <div class="sip-category">Sectoral</div>
+          </div>
+          <div class="sip-amount">
+            <div class="monthly">₹5,000<span>/month</span></div>
+            <div class="return-value positive">+12.3% <span>⬆</span></div>
+          </div>
+          <div class="sip-tags">
+            <span class="tag med-risk">Medium Risk</span>
+            <span class="tag">Technology</span>
+          </div>
+          <div class="sip-details">
+            <div class="detail-item">
+              <div class="detail-label">Start Date</div>
+              <div class="detail-value">20 Jun, 2022</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Total Invested</div>
+              <div class="detail-value">₹1,05,000</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Current Value</div>
+              <div class="detail-value">₹1,17,915</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Next Debit</div>
+              <div class="detail-value">20 Mar, 2025</div>
+            </div>
+          </div>
+          <div class="sip-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button edit-sip-btn">Edit SIP</button>
+          </div>
+        </div>
+
+        <!-- SIP 2 -->
+        <div class="sip-card">
+          <div class="sip-header">
+            <div class="sip-name">Kotak Emerging Equity Fund</div>
+            <div class="sip-category">Equity</div>
+          </div>
+          <div class="sip-amount">
+            <div class="monthly">₹5,000<span>/month</span></div>
+            <div class="return-value positive">+11.8% <span>⬆</span></div>
+          </div>
+          <div class="sip-tags">
+            <span class="tag med-risk">Medium Risk</span>
+            <span class="tag">Small Cap</span>
+          </div>
+          <div class="sip-details">
+            <div class="detail-item">
+              <div class="detail-label">Start Date</div>
+              <div class="detail-value">12 Jul, 2022</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Total Invested</div>
+              <div class="detail-value">₹1,00,000</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Current Value</div>
+              <div class="detail-value">₹1,11,800</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Next Debit</div>
+              <div class="detail-value">12 Mar, 2025</div>
+            </div>
+          </div>
+          <div class="sip-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button edit-sip-btn">Edit SIP</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add SIP Modal -->
+      <div id="add-sip-modal" class="modal-container hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Add New SIP</h2>
+            <button class="close-modal" id="close-add-modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form id="add-sip-form">
+              <div class="form-group">
+                <label for="fund-name">Fund Name</label>
+                <input type="text" id="fund-name" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label for="fund-category">Category</label>
+                <select id="fund-category" class="form-input">
+                  <option value="Equity">Equity</option>
+                  <option value="ELSS">ELSS (Tax Saving)</option>
+                  <option value="Debt">Debt</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Sectoral">Sectoral</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group half">
+                  <label for="sip-amount">Monthly Amount (₹)</label>
+                  <input
+                    type="number"
+                    id="sip-amount"
+                    class="form-input"
+                    min="500"
+                    required
+                  />
+                </div>
+                <div class="form-group half">
+                  <label for="start-date">Start Date</label>
+                  <input
+                    type="date"
+                    id="start-date"
+                    class="form-input"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="risk-level">Risk Level</label>
+                <select id="risk-level" class="form-input">
+                  <option value="low-risk">Low Risk</option>
+                  <option value="med-risk">Medium Risk</option>
+                  <option value="high-risk">High Risk</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="fund-tags">Tags (comma separated)</label>
+                <input
+                  type="text"
+                  id="fund-tags"
+                  class="form-input"
+                  placeholder="e.g. Large Cap, Dividend"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="stock-button view-btn" id="save-sip-btn">
+              Add SIP
+            </button>
+            <button class="stock-button watchlist-btn" id="cancel-add-btn">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit SIP Modal -->
+      <div id="edit-sip-modal" class="modal-container hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Edit SIP</h2>
+            <button class="close-modal" id="close-edit-modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form id="edit-sip-form">
+              <div class="form-group">
+                <label for="edit-fund-name">Fund Name</label>
+                <input
+                  type="text"
+                  id="edit-fund-name"
+                  class="form-input"
+                  value="SBI Blue Chip Fund"
+                  disabled
+                />
+              </div>
+              <div class="form-group">
+                <label for="edit-sip-amount">Monthly Amount (₹)</label>
+                <input
+                  type="number"
+                  id="edit-sip-amount"
+                  class="form-input"
+                  value="10000"
+                  min="500"
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group half">
+                  <label for="edit-debit-date">Debit Date</label>
+                  <select id="edit-debit-date" class="form-input">
+                    <option value="1">1st</option>
+                    <option value="5" selected>5th</option>
+                    <option value="10">10th</option>
+                    <option value="15">15th</option>
+                    <option value="20">20th</option>
+                    <option value="25">25th</option>
+                  </select>
+                </div>
+                <div class="form-group half">
+                  <label for="edit-status">Status</label>
+                  <select id="edit-status" class="form-input">
+                    <option value="active" selected>Active</option>
+                    <option value="paused">Paused</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="sip-end-date">End Date (Optional)</label>
+                <input type="date" id="sip-end-date" class="form-input" />
+                <p class="hint-text">Leave blank for perpetual SIP</p>
+              </div>
+              <div class="action-row">
+                <button type="button" class="stop-sip-btn">Stop SIP</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="stock-button view-btn" id="update-sip-btn">
+              Update SIP
+            </button>
+            <button class="stock-button watchlist-btn" id="cancel-edit-btn">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIP Details Modal -->
+      <div id="sip-details-modal" class="modal-container hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>SIP Details</h2>
+            <button class="close-modal" id="close-details-modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="sip-detail-header">
+              <div class="sip-name-large">SBI Blue Chip Fund</div>
+              <div class="sip-category-chip">Equity</div>
+            </div>
+
+            <div class="sip-performance">
+              <div class="sip-stats">
+                <div class="stat-item">
+                  <div class="stat-value">₹10,000</div>
+                  <div class="stat-label">Monthly Investment</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">₹2,40,000</div>
+                  <div class="stat-label">Total Invested</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">₹2,74,800</div>
+                  <div class="stat-label">Current Value</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value positive">+14.5%</div>
+                  <div class="stat-label">Overall Return</div>
+                </div>
+              </div>
+
+              <div class="chart-container">
+                <div class="chart-placeholder">
+                  <div class="chart-legend">
+                    <div class="legend-item">
+                      <span class="legend-color invested"></span>
+                      <span>Invested</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="legend-color returns"></span>
+                      <span>Returns</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sip-info-grid">
+              <div class="info-group">
+                <h3>Fund Details</h3>
+                <div class="info-items">
+                  <div class="info-item">
+                    <div class="info-label">Fund House</div>
+                    <div class="info-value">SBI Mutual Fund</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-label">Fund Manager</div>
+                    <div class="info-value">Sohini Andani</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-label">Fund Size</div>
+                    <div class="info-value">₹36,420 Cr</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-label">Expense Ratio</div>
+                    <div class="info-value">1.65%</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-group">
+                <h3>SIP Details</h3>
+                <div class="info-items">
+                  <div class="info-item">
+                    <div class="info-label">Start Date</div>
+                    <div class="info-value">5 Mar, 2022</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-label">Debit Date</div>
+                    <div class="info-value">5th of every month</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-label">Next Debit</div>
+                    <div class="info-value">5 Mar, 2025</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-label">Status</div>
+                    <div class="info-value">Active</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="stock-button view-btn" id="edit-from-details-btn">
+              Edit SIP
+            </button>
+            <button class="stock-button watchlist-btn" id="close-details-btn">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="update-notification" class="notification hidden">
+        <span id="notification-message">Action completed successfully!</span>
+      </div>
+    </div>
+
+    <!-- Link to JS -->
+    <script src="sip-tracer.js"></script>
+  </body>
+</html>

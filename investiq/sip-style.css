@@ -1,0 +1,244 @@
+/* SIP Tracker Styles - Add to style3.css */
+
+/* Card styles for SIP summary */
+.sip-summary-card {
+  margin-bottom: 20px;
+}
+
+.sip-summary-card .card-body {
+  padding: 20px;
+}
+
+.sip-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.sip-stat-item {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-change {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.stat-change.positive {
+  color: var(--success-color);
+}
+
+.stat-change.negative {
+  color: var(--danger-color);
+}
+
+/* SIP Cards */
+.sip-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.sip-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 3px solid transparent;
+}
+
+.sip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sip-card.low-risk {
+  border-top-color: var(--success-color);
+}
+
+.sip-card.med-risk {
+  border-top-color: #ff9800;
+}
+
+.sip-card.high-risk {
+  border-top-color: var(--danger-color);
+}
+
+.sip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sip-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sip-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.sip-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.sip-actions button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #777;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.edit-sip-btn:hover {
+  color: var(--primary-color);
+}
+
+.delete-sip-btn:hover {
+  color: var(--danger-color);
+}
+
+.sip-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.sip-amount,
+.sip-tenure,
+.sip-returns,
+.sip-start-date {
+  font-size: 0.9rem;
+}
+
+.sip-performance {
+  margin-top: 10px;
+}
+
+.progress-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+.performance-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.growth.positive {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+.growth.negative {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.form-select {
+  background-color: white;
+}
+
+/* Dark mode adaptations */
+.dark-mode .sip-stat-item {
+  background-color: #2a2a2a;
+}
+
+.dark-mode .stat-label {
+  color: #aaa;
+}
+
+.dark-mode .stat-change {
+  color: #aaa;
+}
+
+.dark-mode .sip-card {
+  background-color: #1f1f1f;
+}
+
+.dark-mode .progress-container {
+  background-color: #444;
+}
+
+.dark-mode .sip-actions button {
+  color: #aaa;
+}
+
+.dark-mode .form-input,
+.dark-mode .form-select {
+  background-color: #333;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .sip-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sip-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .sip-details {
+    grid-template-columns: 1fr;
+  }
+}

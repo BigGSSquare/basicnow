@@ -1,4 +1,3 @@
-/* General Styles */
 :root {
   --primary-color: #4361ee;
   --danger-color: #e63946;
@@ -737,7 +736,7 @@ header h1 {
     text-align: center;
     gap: 15px;
   }
-  
+
   .savings-info {
     flex-direction: column;
     gap: 5px;

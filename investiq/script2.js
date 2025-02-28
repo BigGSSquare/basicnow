@@ -63,6 +63,7 @@ async function fetchStockPrice(symbol) {
         price: parseFloat(latest.c).toFixed(2),
         change: (((latest.c - latest.o) / latest.o) * 100).toFixed(2),
         prevClose: parseFloat(latest.o).toFixed(2),
+        marketCap: getMarketCapCategory(symbol), // Add market cap category
       };
     }
     showNotification("Stock not found or invalid response", 3000);
@@ -72,6 +73,35 @@ async function fetchStockPrice(symbol) {
     showNotification("Error fetching stock data: " + error.message, 5000);
     return null;
   }
+}
+
+// Function to determine market cap category based on symbol
+function getMarketCapCategory(symbol) {
+  // Predefined market cap categories for our sample stocks
+  const marketCapMap = {
+    // Large Cap Stocks
+    AAPL: "Large Cap",
+    MSFT: "Large Cap",
+    AMZN: "Large Cap",
+    GOOGL: "Large Cap",
+    META: "Large Cap",
+
+    // Mid Cap Stocks
+    ETSY: "Mid Cap",
+    DOCU: "Mid Cap",
+    DKNG: "Mid Cap",
+    ROKU: "Mid Cap",
+    SNAP: "Mid Cap",
+
+    // Small Cap Stocks
+    SFIX: "Small Cap",
+    REAL: "Small Cap",
+    PUBM: "Small Cap",
+    MGNI: "Small Cap",
+    FSLY: "Small Cap",
+  };
+
+  return marketCapMap[symbol] || "Unknown";
 }
 
 // Add Stock to Watchlist with animation
@@ -115,7 +145,9 @@ function addStockToTable(symbol, stockData) {
   row.style.opacity = "0";
   row.style.transform = "translateY(20px)";
   row.innerHTML = `
-    <td class="stock-symbol">${symbol}</td>
+    <td class="stock-symbol">${symbol} <span class="market-cap-tag ${stockData.marketCap
+    .toLowerCase()
+    .replace(" ", "-")}">${stockData.marketCap}</span></td>
     <td class="price">$${stockData.price}</td>
     <td class="change ${parseFloat(stockData.change) >= 0 ? "green" : "red"}">
       ${stockData.change >= 0 ? "+" : ""}${stockData.change}%
@@ -173,6 +205,10 @@ function addStockToTable(symbol, stockData) {
               }">
                 ${stockData.change}%
               </span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Market Cap:</span>
+              <span class="detail-value">${stockData.marketCap}</span>
             </div>
           </div>
         </td>
@@ -381,14 +417,22 @@ function updateChart(labels, contributionData, interestData, totalBalanceData) {
   }, 1000);
 }
 
-// Add sample stock data on page load
+// Add sample stock data on page load with different market cap categories
 window.addEventListener("load", function () {
   // Update UI based on theme
   updateToggleButton(document.body.classList.contains("dark-mode"));
 
-  // Load sample stocks
+  // Load stocks from different market cap categories
   if (document.querySelectorAll("#watchlist tr").length === 0) {
-    ["AAPL", "GOOGL", "TSLA"].forEach(async (symbol, index) => {
+    // Define all stock symbols by category
+    const largeCapStocks = ["AAPL", "MSFT", "AMZN"];
+    const midCapStocks = ["ETSY", "DOCU", "ROKU"];
+    const smallCapStocks = ["SFIX", "REAL", "PUBM"];
+
+    // Combine all stocks with a delay between each category
+    const allStocks = [...largeCapStocks, ...midCapStocks, ...smallCapStocks];
+
+    allStocks.forEach(async (symbol, index) => {
       // Add slight delay between each fetch for better visual
       setTimeout(async () => {
         const stockData = await fetchStockPrice(symbol);
@@ -401,7 +445,7 @@ window.addEventListener("load", function () {
   calculateInvestment(1000, 200, 0.07, 10);
 });
 
-// Additional CSS for animations
+// Additional CSS for animations and market cap tags
 const style = document.createElement("style");
 style.textContent = `
   .updating {
@@ -441,7 +485,7 @@ style.textContent = `
   
   .details-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
   }
   
@@ -486,6 +530,36 @@ style.textContent = `
     0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
     50% { box-shadow: 0 4px 25px rgba(76, 201, 240, 0.4); }
     100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+  }
+  
+  /* Market Cap Tags */
+  .market-cap-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  
+  .large-cap {
+    background-color: #4361ee;
+    color: white;
+  }
+  
+  .mid-cap {
+    background-color: #4cc9f0;
+    color: #333;
+  }
+  
+  .small-cap {
+    background-color: #f72585;
+    color: white;
+  }
+  
+  .dark-mode .mid-cap {
+    color: #111;
   }
 `;
 

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Recommendations</title>
+    <link rel="stylesheet" href="style3.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <h2>FinTrack</h2>
+      <nav>
+        <ul>
+          <li><a href="SHEET1.html">Dashboard</a></li>
+          <li><a href="index2.html" class="active">Market Trends</a></li>
+          <li><a href="index3.html">Suggestions</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header>
+        <h1>Stock Recommendations</h1>
+        <div class="theme-toggle" id="theme-toggle">
+          <span class="toggle-icon">🌙</span>
+          <span class="toggle-text">Dark Mode</span>
+        </div>
+      </header>
+
+      <!-- High Returns, Low Risk Section -->
+      <h3 class="category-header">High Returns, Low Risk</h3>
+      <div class="stock-cards">
+        <!-- Stock 1 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Microsoft Corporation</div>
+            <div class="stock-ticker">MSFT</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$385.44</div>
+            <div class="price-change positive">+2.5% <span>⬆</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag low-risk">Low Risk</span>
+            <span class="tag">Tech</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$2.86T</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">0.75%</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">36.8</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$310 - $395</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+
+        <!-- Stock 2 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Johnson & Johnson</div>
+            <div class="stock-ticker">JNJ</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$158.86</div>
+            <div class="price-change positive">+1.8% <span>⬆</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag low-risk">Low Risk</span>
+            <span class="tag">Healthcare</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$382.8B</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">3.02%</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">26.4</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$144 - $175</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+
+        <!-- Stock 3 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Procter & Gamble</div>
+            <div class="stock-ticker">PG</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$167.79</div>
+            <div class="price-change positive">+0.9% <span>⬆</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag low-risk">Low Risk</span>
+            <span class="tag">Consumer</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$395.6B</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">2.42%</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">27.5</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$141 - $169</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medium Returns Section -->
+      <h3 class="category-header">Medium Returns</h3>
+      <div class="stock-cards">
+        <!-- Stock 1 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Nike, Inc.</div>
+            <div class="stock-ticker">NKE</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$93.76</div>
+            <div class="price-change negative">-1.2% <span>⬇</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag med-risk">Medium Risk</span>
+            <span class="tag">Consumer</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$142.8B</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">1.29%</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">32.6</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$88 - $123</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+
+        <!-- Stock 2 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Visa Inc.</div>
+            <div class="stock-ticker">V</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$276.32</div>
+            <div class="price-change positive">+1.1% <span>⬆</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag med-risk">Medium Risk</span>
+            <span class="tag">Financial</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$569.7B</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">0.77%</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">30.8</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$248 - $290</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+
+        <!-- Stock 3 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Adobe Inc.</div>
+            <div class="stock-ticker">ADBE</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$502.58</div>
+            <div class="price-change positive">+2.3% <span>⬆</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag med-risk">Medium Risk</span>
+            <span class="tag">Tech</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$228.1B</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">44.2</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$433 - $638</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- High Risk Section -->
+      <h3 class="category-header">High Risk, High Potential</h3>
+      <div class="stock-cards">
+        <!-- Stock 1 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Tesla, Inc.</div>
+            <div class="stock-ticker">TSLA</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$208.33</div>
+            <div class="price-change positive">+3.8% <span>⬆</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag high-risk">High Risk</span>
+            <span class="tag">Automotive</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$663.8B</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">59.6</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$138 - $299</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+
+        <!-- Stock 2 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">NVIDIA Corporation</div>
+            <div class="stock-ticker">NVDA</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$826.53</div>
+            <div class="price-change positive">+1.9% <span>⬆</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag high-risk">High Risk</span>
+            <span class="tag">Tech</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$2.04T</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">0.03%</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">71.2</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$120 - $974</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+
+        <!-- Stock 3 -->
+        <div class="stock-card">
+          <div class="stock-header">
+            <div class="stock-name">Palantir Technologies</div>
+            <div class="stock-ticker">PLTR</div>
+          </div>
+          <div class="stock-price">
+            <div class="current-price">$24.31</div>
+            <div class="price-change negative">-2.7% <span>⬇</span></div>
+          </div>
+          <div class="stock-tags">
+            <span class="tag high-risk">High Risk</span>
+            <span class="tag">Tech</span>
+          </div>
+          <div class="stock-details">
+            <div class="detail-item">
+              <div class="detail-label">Market Cap</div>
+              <div class="detail-value">$53.8B</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Dividend Yield</div>
+              <div class="detail-value">-</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">P/E Ratio</div>
+              <div class="detail-value">220.9</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">52W Range</div>
+              <div class="detail-value">$12 - $27</div>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="stock-button view-btn">View Details</button>
+            <button class="stock-button watchlist-btn">Add to Watchlist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="update-notification" class="notification hidden">
+      <span id="notification-message">Action completed successfully!</span>
+    </div>
+
+    <script src="script3.js"></script>
+  </body>
+</html>

@@ -23,6 +23,232 @@ themeToggle.addEventListener("click", function () {
   localStorage.setItem("theme", isDarkMode ? "dark" : "light");
 });
 
+// Dashboard Data Store
+const dashboardData = {
+  // Store all transactions
+  transactions: [],
+
+  // Initial portfolio starting value
+  initialPortfolioValue: 45000,
+
+  // Current portfolio value (will be calculated)
+  currentPortfolioValue: 45000,
+
+  // Time period for portfolio chart (months)
+  portfolioMonths: 6,
+
+  // Add a transaction and update all charts
+  addTransaction(transaction) {
+    // Add transaction to the beginning of the array (newest first)
+    this.transactions.unshift(transaction);
+
+    // Save to localStorage
+    this.saveTransactions();
+
+    // Update portfolio value
+    if (transaction.type === "income") {
+      this.currentPortfolioValue += parseFloat(transaction.amount);
+    } else {
+      this.currentPortfolioValue -= parseFloat(transaction.amount);
+    }
+
+    // Update all charts
+    this.updateAllCharts();
+  },
+
+  // Remove a transaction and update all charts
+  removeTransaction(index) {
+    // Get the transaction to be removed
+    const transaction = this.transactions[index];
+
+    // Remove transaction
+    this.transactions.splice(index, 1);
+
+    // Save to localStorage
+    this.saveTransactions();
+
+    // Update portfolio value
+    if (transaction.type === "income") {
+      this.currentPortfolioValue -= parseFloat(transaction.amount);
+    } else {
+      this.currentPortfolioValue += parseFloat(transaction.amount);
+    }
+
+    // Update all charts
+    this.updateAllCharts();
+  },
+
+  // Calculate expense and savings data
+  calculateExpenseSavingsData() {
+    // Calculate totals by category
+    const totals = {
+      expense: 0,
+      income: 0,
+      categories: {},
+    };
+
+    this.transactions.forEach((transaction) => {
+      // Track totals by transaction type
+      if (transaction.type === "expense") {
+        totals.expense += parseFloat(transaction.amount);
+      } else {
+        totals.income += parseFloat(transaction.amount);
+      }
+
+      // Track totals by category
+      if (!totals.categories[transaction.category]) {
+        totals.categories[transaction.category] = 0;
+      }
+      totals.categories[transaction.category] += parseFloat(transaction.amount);
+    });
+
+    // Calculate savings
+    const savings = totals.income - totals.expense;
+    const savings_percentage =
+      totals.income > 0 ? (savings / totals.income) * 100 : 0;
+    const expense_percentage =
+      totals.income > 0 ? (totals.expense / totals.income) * 100 : 0;
+
+    // Include others for miscellaneous expenses (if any)
+    const others_percentage = Math.max(
+      0,
+      100 - expense_percentage - savings_percentage
+    );
+
+    return {
+      expense: totals.expense,
+      income: totals.income,
+      savings: savings,
+      expense_percentage: expense_percentage,
+      savings_percentage: savings_percentage,
+      others_percentage: others_percentage,
+      categories: totals.categories,
+    };
+  },
+
+  // Calculate investment breakdown data
+  calculateInvestmentBreakdown() {
+    // Filter transactions by investment categories
+    const investmentCategories = ["SIP", "Mutual Funds", "Stocks"];
+    const investmentData = {};
+
+    investmentCategories.forEach((category) => {
+      investmentData[category] = 0;
+    });
+
+    // Count only income transactions for investments
+    this.transactions.forEach((transaction) => {
+      if (
+        transaction.type === "income" &&
+        investmentCategories.includes(transaction.category)
+      ) {
+        investmentData[transaction.category] += parseFloat(transaction.amount);
+      }
+    });
+
+    // Calculate totals
+    const totalInvestment = Object.values(investmentData).reduce(
+      (a, b) => a + b,
+      0
+    );
+
+    // Convert to percentages
+    const result = {};
+    if (totalInvestment > 0) {
+      investmentCategories.forEach((category) => {
+        result[category] = (investmentData[category] / totalInvestment) * 100;
+      });
+    } else {
+      // If no investment data, use default values
+      result["SIP"] = 45;
+      result["Mutual Funds"] = 35;
+      result["Stocks"] = 20;
+    }
+
+    return {
+      values: Object.values(result),
+      total: totalInvestment,
+    };
+  },
+
+  // Generate historical portfolio data
+  generatePortfolioHistory() {
+    const months = this.portfolioMonths;
+    const dates = generateDates(months);
+
+    // Start with initial value
+    let initialPortfolioValue = this.initialPortfolioValue;
+
+    // Generate portfolio values
+    const portfolioData = [initialPortfolioValue];
+
+    // Generate random historical data with growth trend (except for the last point)
+    for (let i = 1; i < months; i++) {
+      // Simulate monthly growth with some randomness
+      const growthRate = 0.12; // Annual growth rate
+      const randomFactor = 1 + (Math.random() * 0.06 - 0.03); // Random factor between 0.97 and 1.03
+      initialPortfolioValue =
+        initialPortfolioValue * (1 + growthRate / 12) * randomFactor;
+      portfolioData.push(Math.round(initialPortfolioValue * 100) / 100);
+    }
+
+    // Add the current actual portfolio value as the last point
+    portfolioData.push(this.currentPortfolioValue);
+
+    return {
+      labels: dates,
+      data: portfolioData,
+    };
+  },
+
+  // Update all charts and UI
+  updateAllCharts() {
+    // Update portfolio chart
+    updatePortfolioChart();
+
+    // Update expense vs savings chart
+    updateExpenseSavingsChart();
+
+    // Update investment breakdown chart
+    updateInvestmentBreakdownChart();
+
+    // Update transaction list
+    refreshTransactionsList();
+
+    // Update portfolio stats
+    updatePortfolioStats();
+
+    // Update last updated time
+    updateLastUpdatedTime();
+  },
+
+  // Save transactions to localStorage
+  saveTransactions() {
+    localStorage.setItem(
+      "dashboardTransactions",
+      JSON.stringify(this.transactions)
+    );
+  },
+
+  // Load transactions from localStorage
+  loadTransactions() {
+    const savedTransactions = localStorage.getItem("dashboardTransactions");
+    if (savedTransactions) {
+      this.transactions = JSON.parse(savedTransactions);
+
+      // Recalculate current portfolio value
+      this.currentPortfolioValue = this.initialPortfolioValue;
+      this.transactions.forEach((transaction) => {
+        if (transaction.type === "income") {
+          this.currentPortfolioValue += parseFloat(transaction.amount);
+        } else {
+          this.currentPortfolioValue -= parseFloat(transaction.amount);
+        }
+      });
+    }
+  },
+};
+
 // Portfolio Growth Chart
 let portfolioChart = null;
 let expenseSavingsChart = null;
@@ -65,213 +291,297 @@ function generateDates(months) {
   return dates;
 }
 
-// Generate random portfolio values with a growth trend
-function generatePortfolioData(months, startValue, growthRate) {
-  const data = [];
-  let currentValue = startValue;
-
-  for (let i = 0; i <= months; i++) {
-    // Add some randomness but maintain an overall growth trend
-    const randomFactor = 1 + (Math.random() * 0.06 - 0.03); // Random factor between 0.97 and 1.03
-    currentValue = currentValue * (1 + growthRate / 12) * randomFactor;
-    data.push(Math.round(currentValue * 100) / 100);
-  }
-
-  return data;
-}
-
-// Initialize Portfolio Growth Chart
-function initPortfolioChart(months = 6) {
-  const ctx = document.getElementById("portfolioGrowthChart").getContext("2d");
-  if (!ctx) {
-    console.error("Could not get context for portfolioGrowthChart");
-    return;
-  }
-
-  const startValue = 45000; // Starting portfolio value
-  const growthRate = 0.12; // Annual growth rate
-
-  const labels = generateDates(months);
-  const portfolioData = generatePortfolioData(months, startValue, growthRate);
-
-  // Update the portfolio value and growth percentage
+// Update portfolio stats
+function updatePortfolioStats() {
   const totalAssetsEl = document.getElementById("total-assets");
   const portfolioGrowthEl = document.getElementById("portfolio-growth");
 
   if (totalAssetsEl) {
-    totalAssetsEl.textContent = `$${portfolioData[
-      portfolioData.length - 1
-    ].toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+    totalAssetsEl.textContent = `$${dashboardData.currentPortfolioValue.toLocaleString(
+      undefined,
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }
+    )}`;
   }
 
   if (portfolioGrowthEl) {
-    const growthPercentage =
-      (portfolioData[portfolioData.length - 1] / portfolioData[0] - 1) * 100;
+    // Calculate growth based on first and last values in portfolio history
+    const portfolioHistory = dashboardData.generatePortfolioHistory();
+    const firstValue = portfolioHistory.data[0];
+    const lastValue = portfolioHistory.data[portfolioHistory.data.length - 1];
+
+    const growthPercentage = (lastValue / firstValue - 1) * 100;
+
     portfolioGrowthEl.textContent = `${
       growthPercentage >= 0 ? "+" : ""
     }${growthPercentage.toFixed(1)}%`;
+
     portfolioGrowthEl.className = `stat-value ${
       growthPercentage >= 0 ? "green" : "red"
     }`;
   }
 
-  if (portfolioChart) {
-    portfolioChart.destroy();
-  }
+  // Update income and expenses
+  const incomeEl = document.getElementById("total-income");
+  const expensesEl = document.getElementById("total-expenses");
 
-  portfolioChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Portfolio Value",
-          data: portfolioData,
-          backgroundColor: "rgba(67, 97, 238, 0.2)",
-          borderColor: "rgba(67, 97, 238, 1)",
-          borderWidth: 2,
-          tension: 0.3,
-          fill: true,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function (context) {
-              return `Portfolio Value: $${context.parsed.y.toLocaleString(
-                undefined,
-                {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }
-              )}`;
-            },
-          },
-        },
-        legend: {
-          display: false,
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: false,
-          ticks: {
-            callback: function (value) {
-              return "$" + value.toLocaleString();
-            },
-          },
-        },
-      },
-    },
-  });
+  if (incomeEl && expensesEl) {
+    const financialData = dashboardData.calculateExpenseSavingsData();
+
+    incomeEl.textContent = `$${financialData.income.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+
+    expensesEl.textContent = `$${financialData.expense.toLocaleString(
+      undefined,
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }
+    )}`;
+  }
 }
 
-// Initialize Expense vs Savings Chart
-function initExpenseSavingsChart() {
+// Update Portfolio Growth Chart
+function updatePortfolioChart() {
+  const ctx = document.getElementById("portfolioGrowthChart");
+  if (!ctx) {
+    console.error("Could not find portfolioGrowthChart");
+    return;
+  }
+
+  const portfolioHistory = dashboardData.generatePortfolioHistory();
+
+  if (portfolioChart) {
+    portfolioChart.data.labels = portfolioHistory.labels;
+    portfolioChart.data.datasets[0].data = portfolioHistory.data;
+    portfolioChart.update();
+  } else {
+    portfolioChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: portfolioHistory.labels,
+        datasets: [
+          {
+            label: "Portfolio Value",
+            data: portfolioHistory.data,
+            backgroundColor: "rgba(67, 97, 238, 0.2)",
+            borderColor: "rgba(67, 97, 238, 1)",
+            borderWidth: 2,
+            tension: 0.3,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return `Portfolio Value: $${context.parsed.y.toLocaleString(
+                  undefined,
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}`;
+              },
+            },
+          },
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: false,
+            ticks: {
+              callback: function (value) {
+                return "$" + value.toLocaleString();
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+}
+
+// Update Expense vs Savings Chart
+function updateExpenseSavingsChart() {
   const ctx = document.getElementById("expenseSavingsChart");
   if (!ctx) {
     console.error("Could not find expenseSavingsChart");
     return;
   }
 
-  const context = ctx.getContext("2d");
-  if (!context) {
-    console.error("Could not get context for expenseSavingsChart");
-    return;
-  }
+  const financialData = dashboardData.calculateExpenseSavingsData();
+
+  // Prepare data for the chart
+  const chartData = [
+    financialData.expense_percentage,
+    financialData.savings_percentage,
+    financialData.others_percentage,
+  ];
 
   if (expenseSavingsChart) {
-    expenseSavingsChart.destroy();
-  }
-
-  expenseSavingsChart = new Chart(context, {
-    type: "doughnut",
-    data: {
-      labels: ["Expenses", "Savings", "Others"],
-      datasets: [
-        {
-          data: [52, 32, 16],
-          backgroundColor: [
-            "rgba(239, 68, 68, 0.8)",
-            "rgba(16, 185, 129, 0.8)",
-            "rgba(76, 201, 240, 0.8)",
-          ],
-          borderColor: [
-            "rgba(239, 68, 68, 1)",
-            "rgba(16, 185, 129, 1)",
-            "rgba(76, 201, 240, 1)",
-          ],
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "bottom",
+    expenseSavingsChart.data.datasets[0].data = chartData;
+    expenseSavingsChart.update();
+  } else {
+    expenseSavingsChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Expenses", "Savings", "Others"],
+        datasets: [
+          {
+            data: chartData,
+            backgroundColor: [
+              "rgba(239, 68, 68, 0.8)",
+              "rgba(16, 185, 129, 0.8)",
+              "rgba(76, 201, 240, 0.8)",
+            ],
+            borderColor: [
+              "rgba(239, 68, 68, 1)",
+              "rgba(16, 185, 129, 1)",
+              "rgba(76, 201, 240, 1)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (tooltipItem) {
+                const label = tooltipItem.label;
+                const value = tooltipItem.raw.toFixed(1) + "%";
+                return `${label}: ${value}`;
+              },
+            },
+          },
+          legend: {
+            position: "bottom",
+          },
         },
       },
-    },
-  });
+    });
+  }
 }
 
-// Initialize Investment Breakdown Chart
-function initInvestmentBreakdownChart() {
+// Update Investment Breakdown Chart
+function updateInvestmentBreakdownChart() {
   const ctx = document.getElementById("investmentBreakdownChart");
   if (!ctx) {
     console.error("Could not find investmentBreakdownChart");
     return;
   }
 
-  const context = ctx.getContext("2d");
-  if (!context) {
-    console.error("Could not get context for investmentBreakdownChart");
+  const investmentData = dashboardData.calculateInvestmentBreakdown();
+
+  if (investmentBreakdownChart) {
+    investmentBreakdownChart.data.datasets[0].data = investmentData.values;
+    investmentBreakdownChart.update();
+  } else {
+    investmentBreakdownChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["SIP", "Mutual Funds", "Stocks"],
+        datasets: [
+          {
+            data: investmentData.values,
+            backgroundColor: [
+              "rgba(67, 97, 238, 0.8)",
+              "rgba(96, 165, 250, 0.8)",
+              "rgba(76, 201, 240, 0.8)",
+            ],
+            borderColor: [
+              "rgba(67, 97, 238, 1)",
+              "rgba(96, 165, 250, 1)",
+              "rgba(76, 201, 240, 1)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (tooltipItem) {
+                const label = tooltipItem.label;
+                const value = tooltipItem.raw.toFixed(1) + "%";
+                return `${label}: ${value}`;
+              },
+            },
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    });
+  }
+}
+
+// Refresh transactions list
+function refreshTransactionsList() {
+  const transactionsList = document.getElementById("transactions-list");
+  if (!transactionsList) {
+    console.error("Could not find transactions-list");
     return;
   }
 
-  if (investmentBreakdownChart) {
-    investmentBreakdownChart.destroy();
-  }
+  // Clear the list
+  transactionsList.innerHTML = "";
 
-  investmentBreakdownChart = new Chart(context, {
-    type: "doughnut",
-    data: {
-      labels: ["SIP", "Mutual Funds", "Stocks"],
-      datasets: [
-        {
-          data: [45, 35, 20],
-          backgroundColor: [
-            "rgba(67, 97, 238, 0.8)",
-            "rgba(96, 165, 250, 0.8)",
-            "rgba(76, 201, 240, 0.8)",
-          ],
-          borderColor: [
-            "rgba(67, 97, 238, 1)",
-            "rgba(96, 165, 250, 1)",
-            "rgba(76, 201, 240, 1)",
-          ],
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "bottom",
-        },
-      },
-    },
+  // Add all transactions to the list
+  dashboardData.transactions.forEach((transaction, index) => {
+    const newRow = document.createElement("tr");
+
+    const dateObj = new Date(transaction.date);
+    const formattedDate = dateObj.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+    newRow.innerHTML = `
+      <td>${formattedDate}</td>
+      <td>${transaction.category}</td>
+      <td class="${transaction.type === "income" ? "green" : "red"}">${
+      transaction.type === "income" ? "Income" : "Expense"
+    }</td>
+      <td>$${parseFloat(transaction.amount).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}</td>
+      <td>
+        <button class="delete-btn" data-index="${index}">
+          <span class="delete-icon">×</span>
+        </button>
+      </td>
+    `;
+
+    transactionsList.appendChild(newRow);
+  });
+
+  // Add event listeners to delete buttons
+  document.querySelectorAll(".delete-btn").forEach((button) => {
+    button.addEventListener("click", function () {
+      const index = parseInt(this.getAttribute("data-index"));
+      dashboardData.removeTransaction(index);
+      showNotification("Transaction deleted successfully!");
+    });
   });
 }
 
@@ -288,52 +598,21 @@ function setupTransactionForm() {
 
     const amount = document.getElementById("transaction-amount").value;
     const type = document.getElementById("transaction-type").value;
-    const category = document.getElementById("transaction-category").value;
+    const categoryElement = document.getElementById("transaction-category");
+    const category =
+      categoryElement.options[categoryElement.selectedIndex].text;
     const dateInput = document.getElementById("transaction-date").value;
 
-    const date = new Date(dateInput);
-    const formattedDate = date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
+    // Create transaction object
+    const transaction = {
+      amount: parseFloat(amount),
+      type: type,
+      category: category,
+      date: dateInput,
+    };
 
-    const transactionsList = document.getElementById("transactions-list");
-    if (!transactionsList) {
-      console.error("Could not find transactions-list");
-      return;
-    }
-
-    const newRow = document.createElement("tr");
-    newRow.style.opacity = "0";
-    newRow.style.transform = "translateY(20px)";
-
-    const categoryElement = document.getElementById("transaction-category");
-    if (!categoryElement) {
-      console.error("Could not find transaction-category");
-      return;
-    }
-
-    newRow.innerHTML = `
-    <td>${formattedDate}</td>
-    <td>${categoryElement.options[categoryElement.selectedIndex].text}</td>
-    <td class="${type === "income" ? "green" : "red"}">${
-      type === "income" ? "Income" : "Expense"
-    }</td>
-    <td>$${parseFloat(amount).toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}</td>
-  `;
-
-    transactionsList.insertBefore(newRow, transactionsList.firstChild);
-
-    // Animate the row appearing
-    setTimeout(() => {
-      newRow.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-      newRow.style.opacity = "1";
-      newRow.style.transform = "translateY(0)";
-    }, 50);
+    // Add to data store
+    dashboardData.addTransaction(transaction);
 
     showNotification("Transaction added successfully!");
     this.reset();
@@ -363,7 +642,8 @@ function setupTimeButtons() {
       this.classList.add("active");
 
       const months = parseInt(this.getAttribute("data-months"));
-      initPortfolioChart(months);
+      dashboardData.portfolioMonths = months;
+      updatePortfolioChart();
 
       // Animate the chart section
       const chartSection = document.querySelector(
@@ -392,16 +672,15 @@ function initDashboard() {
   }
 
   try {
-    // Initialize all charts
-    initPortfolioChart(6); // Default 6 months
-    initExpenseSavingsChart();
-    initInvestmentBreakdownChart();
+    // Load saved transactions
+    dashboardData.loadTransactions();
+
+    // Initialize all charts and UI
+    dashboardData.updateAllCharts();
 
     // Setup event listeners
     setupTransactionForm();
     setupTimeButtons();
-
-    updateLastUpdatedTime();
   } catch (error) {
     console.error("Error initializing dashboard:", error);
   }
@@ -605,6 +884,27 @@ function addDashboardStyle() {
     100% { box-shadow: 0 0 0 rgba(67, 97, 238, 0); }
   }
   
+  /* Add delete button styling */
+  .delete-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--danger-color, #ef4444);
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .delete-btn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+  
+  .delete-icon {
+    font-weight: bold;
+  }
+  
   @media (max-width: 768px) {
     .chart-container {
       flex-direction: column;
@@ -699,9 +999,9 @@ if (document.readyState === "loading") {
 
 // Export the functions for potential external use
 window.dashboardFunctions = {
-  initPortfolioChart,
-  initExpenseSavingsChart,
-  initInvestmentBreakdownChart,
-  showNotification,
-  updateLastUpdatedTime,
+  addTransaction: (transaction) => dashboardData.addTransaction(transaction),
+  removeTransaction: (index) => dashboardData.removeTransaction(index),
+  getAllTransactions: () => dashboardData.transactions,
+  getCurrentPortfolioValue: () => dashboardData.currentPortfolioValue,
+  updateAllCharts: () => dashboardData.updateAllCharts(),
 };
